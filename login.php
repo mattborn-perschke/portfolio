@@ -22,17 +22,30 @@ if(isset($_POST['name']) && !empty($_POST['name'])
     echo ('Verbindungsfehler (' . $mysqli->errno. '): ' . $mysqli->error);
   } else {
 
-    $sql = "select passwort from anwender where name='$name'";
+    $sql = "select name from anwender where name='$name'";
     
     if  ($result = $mysqli->query($sql)) {
       if ($rowObj = $result->fetch_object()){
-        if ($rowObj->passwort == $_POST['passwort'] && $rowObj->name == $_POST['name']) {
-          echo "Login akzeptiert";
+        if ($rowObj->name == $_POST['name']) {
+          $sql = "select passwort from anwender where name='$name'";
+    
+          if  ($result = $mysqli->query($sql)) {
+            if ($rowObj = $result->fetch_object()){
+              if ($rowObj->passwort == $_POST['passwort']) {
+                echo "Login akzeptiert";
+              } else
+                  echo "Fehlerhafter Login";
+            } 
+         
+        }
         } else
             echo "Fehlerhafter Login";
       } 
    
   }
+
+
+    
 }  
   $mysqli->close();
 
