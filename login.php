@@ -31,7 +31,8 @@ if(isset($_POST['name']) && !empty($_POST['name'])
           if  ($result = $mysqli->query($sql)) {
             if ($rowObj = $result->fetch_object()){
               if ($rowObj->passwort == $_POST['passwort']) {
-                echo "Login akzeptiert";
+                header('Location:testseite.html');
+                //echo "Login akzeptiert";
               } else
                   echo "Falsches Passwort";
             } 
