@@ -22,7 +22,7 @@ if(isset($_POST['name']) && !empty($_POST['name'])
     echo ('Verbindungsfehler (' . $mysqli->errno. '): ' . $mysqli->error);
   } else {
 
-    $sql = "select passwort from logindaten where name='$name'";
+    $sql = "select passwort from anwender where name='$name'";
     
     if  ($result = $mysqli->query($sql)) {
       if ($rowObj = $result->fetch_object()){
