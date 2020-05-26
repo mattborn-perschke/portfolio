@@ -33,6 +33,10 @@ $app->get('/', function (Request $request, Response $response, $args) {
 //Alle Aufgaben eines Erstellers anzeigen
 $app->get('/aufgaben', function (Request $request, Response $response, $args) {
     $aufgaben = R::findAll('aufgabe');
+    foreach($aufgaben as $aufgabe) {
+        $aufgabe->benutzer;
+        }
+        
     $response->getBody()->write(json_encode(R::exportAll($aufgaben, TRUE)));
     return $response;
 });
