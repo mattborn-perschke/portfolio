@@ -1,0 +1,46 @@
+:host {
+    display: flex;
+    flex-direction: column;
+}
+
+mat-card {
+    flex: 1;
+    margin: 0.5rem;
+    // border: 55px;
+    // border: #000;
+}
+
+mat-card-title {
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 0.25rem !important;
+    margin-bottom: 0;
+}
+
+mat-card-header {
+  justify-content: space-between;
+}
+
+.header-button {
+  width: 2rem!important;
+  height: 2rem!important;
+}
+
+.list-card {
+  background: rgb(34, 20, 43);
+  flex: 1;
+  margin: 0.5rem;
+  max-width: 100%;
+}
+
+.list-card-white {
+  flex: 1;
+  margin: 0.5rem;
+  background: white;
+  color: initial;
+}
+
+.list-item {
+}

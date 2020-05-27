@@ -1,0 +1,15 @@
+<mat-toolbar class="toolbar">
+  <div>
+    <button mat-icon-button color="accent" aria-label="Example icon button with a menu icon">
+      <fa-icon [icon]="['fas', 'sign-in-alt']"></fa-icon>
+    </button>
+    Todo-Listen
+  </div>
+<span class="tasklist-count">
+  {{ numberOfTasklists$ | async }} Aufgabenlisten
+</span>
+</mat-toolbar>
+<app-list-container
+  [tasklists]="tasklists$ | async"
+  [count]="numberOfTasklists$ | async"
+></app-list-container>

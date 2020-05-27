@@ -1,0 +1,26 @@
+:host {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+mat-sidenav-container {
+    flex: 1;
+}
+
+mat-sidenav {
+    width: 24rem;
+}
+
+mat-toolbar {
+    justify-content: space-between;
+}
+
+.toolbar {
+    background: rgb(34, 20, 43);
+    color: white;
+}
+
+.tasklist-count {
+    font-size: 1rem;
+}

@@ -1,0 +1,9 @@
+<div class="tasklist-grid__container">
+  <div class="tasklist-grid__row" *ngFor="let list of tasklists | chunk: 3">
+    <div class="tasklist-grid__item" *ngFor="let l of list">
+      <app-list
+          [tasklist]="l"
+      ></app-list>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+.list-container {
+  flex: 1;
+}
+:host {
+    display: flex;
+    height: 250%;
+    width: 100%;
+}
+
+.tasklist-grid {
+
+    &__container {
+        flex: 1;
+        padding: 1rem;
+    }
+
+    &__row {
+        display: flex;
+        flex-direction: row;
+        max-width: 100%;
+    }
+
+    &__item {
+        width: 33%;
+        //flex-basis: 25%;
+        flex-grow: 0;
+        flex-shrink: 0;
+        max-width: 33%;
+    }
+}
+
+::ng-deep  .cdk-virtual-scroll-content-wrapper {
+    width: 100%;
+    padding: 0.5rem;
+}
+
