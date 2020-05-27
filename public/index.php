@@ -22,80 +22,129 @@ $app->setBasePath((function () {
 })());
 
 
+
 //URLs:
 
-//Test
-$app->get('/', function (Request $request, Response $response, $args) {
-    $response->getBody()->write("Hallo!");
+//Benutzername und Kennwort validieren
+$app->get('/login/{name}/{passwort}', function (Request $request, Response $response, $args) {
+    $benutzer = R::findOne('benutzer', 'name = ?  AND passwort = ?', [$args['name'], [$args['passwort'], PDO::PARAM_STR]]);  
+    $response->getBody()->write(json_encode(R::exportAll($benutzer, TRUE)));
     return $response;
 });
 
-//Alle Aufgaben eines Erstellers anzeigen
-$app->get('/aufgaben', function (Request $request, Response $response, $args) {
-    $aufgaben = R::findAll('aufgabe');
-    foreach($aufgaben as $aufgabe) {
-        $aufgabe->benutzer;
+//Alle Aufgabenlisten anzeigen
+$app->get('/aufgabenlisten', function (Request $request, Response $response, $args) {
+    $aufgabenlisten = R::findAll('aufgabenliste');
+    foreach($aufgabenlisten as $aufgabenliste) {
+        $aufgabenliste->benutzer;
         }
-        
+    $response->getBody()->write(json_encode(R::exportAll($aufgabenlisten, TRUE)));
+    return $response;
+});
+
+//Alle Aufgabenlisten (eines Erstellers) anzeigen
+$app->get('/aufgabenlisten/{benutzerID}', function (Request $request, Response $response, $args) {
+    $aufgabenlisten = R::findAll('aufgabenliste', 'benutzer_id = ?', [$args['benutzerID']]);  
+    $response->getBody()->write(json_encode(R::exportAll($aufgabenlisten, TRUE)));
+    return $response;
+});
+
+//Eine bestimmte Aufgabenliste (eines Erstellers) anzeigen
+$app->get('/aufgabenlisten/{benutzerID}/{aufgabenlistenID}', function (Request $request, Response $response, $args) {
+    $aufgabenlisten = R::findAll('aufgabenliste', 'benutzer_id = ? AND id = ?', [$args['benutzerID'], [$args['aufgabenlistenID'], PDO::PARAM_STR]]); 
+    $response->getBody()->write(json_encode(R::exportAll($aufgabenlisten, TRUE)));
+    return $response;
+});
+
+//Alle Aufgaben einer Aufgabenliste anzeigen
+$app->get('/aufgaben/{aufgabenlistenID}', function (Request $request, Response $response, $args) {
+    $aufgaben = R::findAll('aufgabe', 'aufgabenliste_id = ?', [$args['aufgabenlistenID']]); 
     $response->getBody()->write(json_encode(R::exportAll($aufgaben, TRUE)));
     return $response;
 });
 
-//Eine bestimmte Aufgabe (eines Erstellers) anzeigen
-$app->get('/aufgaben/{id}', function (Request $request, Response $response, $args) {
- $response->getBody()->write("Eine bestimmte Aufgabe (eines Erstellers) anzeigen");
- return $response;
-});
+//Legt eine neue Aufgabe in einer Aufgabenliste an
+$app->post('/aufgaben/{aufgabenlistenID}', function (Request $request, Response $response, $args) {
+    $parsedBody = $request->getParsedBody();
+    $aufgabe = R::dispense('aufgabe');
+    $aufgabe->titel = $parsedBody['titel'];
+    $aufgabe->beschreibung = $parsedBody['beschreibung'];
+    $aufgabe->zeitpunkt = $parsedBody['zeitpunkt'];
+    $aufgabe->status = $parsedBody['status'];
+    $aufgabe->gewichtung = $parsedBody['gewichtung'];
 
-//Alle Aufgabenlisten (eines Erstellers) anzeigen
-$app->get('/aufgabenlisten', function (Request $request, Response $response, $args) {
- $response->getBody()->write("Alle Aufgabenlisten (eines Erstellers) anzeigen");
- return $response;
-});
+    $a = R::load('aufgabenliste', $parsedBody['aufgabenliste_id']);
+    $aufgabe->aufgabenliste = $a;
+    $aufgabe->aufgabenliste_id = $args['aufgabenlistenID'];
 
-//Alle Aufgaben einer Aufgabenliste (eines Erstellers) anzeigen
-$app->get('/aufgabenlisten/{id}', function (Request $request, Response $response, $args) {
- $response->getBody()->write("Alle Aufgaben einer Aufgabenliste (eines Erstellers) anzeigen");
- return $response;
-});
-
-//Legt eine neue Aufgabe an
-$app->post('/aufgaben', function (Request $request, Response $response, $args) {
- $response->getBody()->write("Legt eine neue Aufgabe an");
- return $response;
+    R::store($aufgabe);
+    $response->getBody()->write(json_encode($aufgabe));
+     return $response;
 });
 
 //Legt eine neue Aufgabenliste an
-$app->post('/aufgabenlisten', function (Request $request, Response $response, $args) {
- $response->getBody()->write("Legt eine neue Aufgabenliste an");
- return $response;
+$app->post('/aufgabenlisten/{benutzerID}', function (Request $request, Response $response, $args) {
+    $parsedBody = $request->getParsedBody();
+    $aufgabenliste = R::dispense('aufgabenliste');
+    $aufgabenliste->titel = $parsedBody['titel'];
+    $aufgabenliste->status = $parsedBody['status'];
+
+    $b = R::load('benutzer', $parsedBody['benutzer_id']);
+    $aufgabenliste->benutzer = $b;
+    $aufgabenliste->benutzer_id = $args['benutzerID'];
+
+    R::store($aufgabenliste);
+    $response->getBody()->write(json_encode($aufgabenliste));
+     return $response;
 });
 
-//Ändert eine bestehende Aufgabe (eines Erstellers)
-$app->put('/aufgaben/{id}', function (Request $request, Response $response, $args) {
- $response->getBody()->write("Ändert eine bestehende Aufgabe (eines Erstellers)");
- return $response;
+//Ändert eine bestehende Aufgabe
+$app->put('/aufgaben/{aufgabenID}', function (Request $request, Response $response, $args) {
+    $parsedBody = json_decode((string)$request->getBody(), true);
+    $aufgabe = R::load('aufgabe', $args['aufgabenID']);
+    $aufgabe->titel = $parsedBody['titel'];
+    $aufgabe->beschreibung = $parsedBody['beschreibung'];
+    $aufgabe->zeitpunkt = $parsedBody['zeitpunkt'];
+    $aufgabe->status = $parsedBody['status'];
+    $aufgabe->gewichtung = $parsedBody['gewichtung'];
+    $aufgabe->aufgabenliste_id = $parsedBody['aufgabenliste_id'];
+
+    R::store($aufgabe);
+    $response->getBody()->write(json_encode($aufgabe));
+     return $response;
+    
 });
 
-//Ändert eine bestehende Aufgabenliste (eines Erstellers)
-$app->put('/aufgabenlisten/{id}', function (Request $request, Response $response, $args) {
- $response->getBody()->write("Ändert eine bestehende Aufgabenliste (eines Erstellers)");
- return $response;
+//Ändert eine bestehende Aufgabenliste
+$app->put('/aufgabenlisten/{aufgabenlistenID}', function (Request $request, Response $response, $args) {
+    $parsedBody = json_decode((string)$request->getBody(), true);
+    $aufgabenliste = R::load('aufgabenliste', $args['aufgabenlistenID']);
+    $aufgabenliste->titel = $parsedBody['titel'];
+    $aufgabenliste->status = $parsedBody['status'];
+    $aufgabenliste->benutzer_id = $parsedBody['benutzer_id'];
+
+    R::store($aufgabenliste);
+    $response->getBody()->write(json_encode($aufgabenliste));
+     return $response;
 });
 
 //Löscht eine bestehende Aufgabe (eines Erstellers)
-$app->delete('/aufgaben/{id}', function (Request $request, Response $response, $args) {
- $response->getBody()->write("Löscht eine bestehende Aufgabe (eines Erstellers)");
- return $response;
+$app->delete('/aufgaben/{aufgabenID}', function (Request $request, Response $response, $args) {
+    $aufgabe = R::load('aufgabe', $args['aufgabenID']);
+    R::trash($aufgabe);
+    $response->getBody()->write(json_encode($aufgabe));
+    return $response;
+    
 });
 
+//##MUSS NOCH GEMACHT WERDEN
 //Löscht eine bestehende Aufgabenliste und alle darin befindlichen Aufgaben (eines Erstellers)
-$app->delete('/aufgabenlisten/{id}', function (Request $request, Response $response, $args) {
- $response->getBody()->write("Löscht eine bestehende Aufgabenliste und alle darin befindlichen Aufgaben (eines Erstellers)");
- return $response;
-});
-
-
+// $app->delete('/aufgabenlisten/{aufgabenlistenID}', function (Request $request, Response $response, $args) {
+//     $aufgabenliste = R::load('aufgabenliste', $args['aufgabenlistenID']);
+//     R::trash($aufgabenliste);
+//     $response->getBody()->write(json_encode($aufgabenliste));
+//     return $response;
+// });
 
 
 $app->run();
