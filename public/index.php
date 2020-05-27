@@ -22,8 +22,7 @@ $app->setBasePath((function () {
 })());
 
 
-
-//URLs:
+//#######URLs##########
 
 //Benutzername und Kennwort validieren
 $app->get('/login/{name}/{passwort}', function (Request $request, Response $response, $args) {
@@ -111,7 +110,7 @@ $app->put('/aufgaben/{aufgabenID}', function (Request $request, Response $respon
 
     R::store($aufgabe);
     $response->getBody()->write(json_encode($aufgabe));
-     return $response;
+    return $response;
     
 });
 
@@ -125,26 +124,28 @@ $app->put('/aufgabenlisten/{aufgabenlistenID}', function (Request $request, Resp
 
     R::store($aufgabenliste);
     $response->getBody()->write(json_encode($aufgabenliste));
-     return $response;
+    return $response;
 });
 
-//Löscht eine bestehende Aufgabe (eines Erstellers)
+//Löscht eine bestehende Aufgabe
 $app->delete('/aufgaben/{aufgabenID}', function (Request $request, Response $response, $args) {
     $aufgabe = R::load('aufgabe', $args['aufgabenID']);
     R::trash($aufgabe);
     $response->getBody()->write(json_encode($aufgabe));
     return $response;
-    
 });
 
-//##MUSS NOCH GEMACHT WERDEN
-//Löscht eine bestehende Aufgabenliste und alle darin befindlichen Aufgaben (eines Erstellers)
-// $app->delete('/aufgabenlisten/{aufgabenlistenID}', function (Request $request, Response $response, $args) {
-//     $aufgabenliste = R::load('aufgabenliste', $args['aufgabenlistenID']);
-//     R::trash($aufgabenliste);
-//     $response->getBody()->write(json_encode($aufgabenliste));
-//     return $response;
-// });
+//Löscht eine bestehende Aufgabenliste und alle darin befindlichen Aufgaben
+$app->delete('/aufgabenlisten/{aufgabenlistenID}', function (Request $request, Response $response, $args) {
+    $aufgaben = R::findAll('aufgabe', 'aufgabenliste_id = ?', [$args['aufgabenlistenID']]);
+    foreach($aufgaben as $aufgabe) {
+        R::trash($aufgabe);
+    }
+    $aufgabenliste = R::load('aufgabenliste', $args['aufgabenlistenID']);
+    R::trash($aufgabenliste);
+    $response->getBody()->write(json_encode($aufgabenliste));
+    return $response;
+});
 
 
 $app->run();
