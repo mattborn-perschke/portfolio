@@ -92,9 +92,11 @@ $app->post('/aufgabenlisten/{benutzerID}', function (Request $request, Response 
     $aufgabenliste->benutzer = $b;
     $aufgabenliste->benutzer_id = $args['benutzerID'];
 
+    $aufgabenliste->ownAufgabe = $parsedBody['ownAufgabe']; //ownAufgabe = null, falls keine Aufgaben drin
+
     R::store($aufgabenliste);
     $response->getBody()->write(json_encode($aufgabenliste));
-     return $response;
+    return $response;
 });
 
 //Ändert eine bestehende Aufgabe
