@@ -1,0 +1,53 @@
+<h2>Neue Aufgabe erstellen</h2>
+<form>
+    <div class="form-group">
+        <label for="titel">Titel</label>
+        <input type="text" formControlName="titel" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="beschreibung">Beschreibung</label>
+        <input type="text" formControlName="beschreibung" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="zeitpunkt">Zu erledigen bis</label><br>
+         <input type="date" id="zeitpunkt">
+    </div>
+    <div class="form-group"><label for="gewichtung">Wichtigkeit</label><br>
+        <label class="container">unwichtig
+        <input type="radio" name="radio">
+        <span class="checkmark"></span>
+        </label>
+        <label class="container">weniger wichtig
+        <input type="radio" name="radio">
+        <span class="checkmark"></span>
+        </label>
+        <label class="container">normal
+        <input type="radio" name="radio">
+        <span class="checkmark"></span>
+        </label>
+        <label class="container">wichtig
+        <input type="radio" name="radio">
+        <span class="checkmark"></span>
+        </label>
+        <label class="container">sehr wichtig
+        <input type="radio" name="radio">
+        <span class="checkmark"></span>
+        </label>    
+    </div>
+    <div class="form-group">
+        <div class="dropdown">
+            <button class="dropbtn">Aufgabenliste</button>
+            <div class="dropdown-content">
+                <a href="#">Neue Aufgabenliste erstellen</a>
+                <a href="#">Aufgabenliste 1</a>
+                <a href="#">Aufgabenliste 2</a>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="form-group">
+        <button class="submit">
+            Speichern
+        </button>
+    </div>
+</form>

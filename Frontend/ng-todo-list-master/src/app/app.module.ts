@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ListComponent } from './components/list/list.component';
 import { TaskComponent } from './components/task/task.component';
+import { HomeComponent } from './components/home/home.component';
 import { TasklistService } from './services/tasklist.service';
 import { ListContainerComponent } from './components/list-container/list-container.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -18,13 +19,21 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
+import { LoginComponent } from './components/login/login.component';
+import { NewtaskComponent } from './components/newtask/newtask.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     ListComponent,
     TaskComponent,
-    ListContainerComponent
+    ListContainerComponent,
+    HomeComponent,
+    LoginComponent,
+    NewtaskComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +45,9 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
     MatToolbarModule,
     MatButtonModule,
     FontAwesomeModule,
-    NgbModule
+    NgbModule,
+    RouterModule,
+    AppRoutingModule
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]

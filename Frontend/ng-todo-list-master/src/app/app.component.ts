@@ -17,13 +17,7 @@ export class AppComponent implements OnInit {
   constructor(private tasklistService: TasklistService) {
 
   }
-  ngOnInit() {
-    this.tasklistService.loadTasklists();
+  ngOnInit(): void {
+  }
 
-    this.tasklists$ = this.tasklistService.getTasklists();
-    this.numberOfTasklists$ = this.tasklistService.getTotalNumberOfProducts();
-  }
-  printTasks() {
-    console.log(this.tasklistService.tasklists$.getValue().length);
-  }
 }

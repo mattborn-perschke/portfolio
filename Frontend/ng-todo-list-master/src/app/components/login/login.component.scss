@@ -1,0 +1,14 @@
+$primaryBackground: rgb(34, 20, 43);
+
+
+.submit {
+    background-color: lighten($primaryBackground, 40%);
+    color: white;
+    padding: 6px;
+    font-size: 16px;
+    border: none;
+    border-radius: 15px 15px 15px 15px;
+    &:hover {
+        background: lighten($primaryBackground, 60%);
+    }
+  }

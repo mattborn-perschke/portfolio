@@ -1,3 +1,5 @@
+$primaryBackground: rgb(34, 20, 43);
+
 :host {
     flex: 1;
     display: flex;
@@ -16,8 +18,21 @@ mat-toolbar {
     justify-content: space-between;
 }
 
+.icon1,.icon2,.icon3,.icon4 {
+    margin: 5px;
+
+    &:hover {
+        background: lighten($primaryBackground, 20%);
+    }
+
+    :link, :visited{
+        color: rgb(134, 134, 134);
+    }
+    
+}
+
 .toolbar {
-    background: rgb(34, 20, 43);
+    background: $primaryBackground;
     color: white;
 }
 

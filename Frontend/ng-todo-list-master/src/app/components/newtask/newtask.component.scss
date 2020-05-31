@@ -1,0 +1,99 @@
+$primaryBackground: rgb(34, 20, 43);
+
+
+
+.submit {
+    background-color: lighten($primaryBackground, 40%);
+    color: white;
+    padding: 6px;
+    font-size: 16px;
+    border: none;
+    border-radius: 15px 15px 15px 15px;
+    &:hover {
+        background: lighten($primaryBackground, 60%);
+    }
+  }
+
+
+/*#################  Radio Button  ################### */
+.container {
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  /* Hide the browser's default radio button */
+  .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom radio button */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+  }
+  
+  /* On mouse-over */
+  .container:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+  
+  /* When the radio button is checked */
+  .container input:checked ~ .checkmark {
+    background-color: lighten($primaryBackground, 20%);
+  }
+
+
+/* ##############  Dropdown Button  ################## */
+.dropbtn {
+    background-color: lighten($primaryBackground, 20%);
+    color: white;
+    padding: 4px;
+    font-size: 16px;
+    border: none;
+    border-radius: 15px 15px 15px 15px;
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 400px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {background-color: lighten($primaryBackground, 60%);}
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {display: block;}
+  
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  .dropdown:hover .dropbtn {background-color: lighten($primaryBackground, 40%);}

@@ -1,15 +1,27 @@
 <mat-toolbar class="toolbar">
+  <span class="tasklist-count">
+    {{ numberOfTasklists$ | async }} Aufgabenlisten
+  </span>
   <div>
-    <button mat-icon-button color="accent" aria-label="Example icon button with a menu icon">
-      <fa-icon [icon]="['fas', 'sign-in-alt']"></fa-icon>
+    <button class="icon1" mat-icon-button color="accent" aria-label="Example icon button with a menu icon">
+      <a href="#" routerLink="/"><fa-icon [icon]="['fas', 'home']"></fa-icon></a>
     </button>
-    Todo-Listen
+   <button class="icon2" mat-icon-button color="accent" aria-label="Example icon button with a menu icon">
+      <a href="#" routerLink="/task"><fa-icon [icon]="['fas', 'tasks']"></fa-icon></a>
+    </button>
+    <button class="icon3" mat-icon-button color="accent" aria-label="Example icon button with a menu icon">
+      <a href="#" routerLink="/newtask"><fa-icon [icon]="['fas', 'plus']"></fa-icon></a>
+    </button>
+   <button class="icon4" mat-icon-button color="accent" aria-label="Example icon button with a menu icon">
+      <a href="#" routerLink="/login"><fa-icon [icon]="['fas', 'sign-out-alt']"></fa-icon></a>
+    </button>
+  Benutzername
   </div>
-<span class="tasklist-count">
-  {{ numberOfTasklists$ | async }} Aufgabenlisten
-</span>
 </mat-toolbar>
 <app-list-container
   [tasklists]="tasklists$ | async"
   [count]="numberOfTasklists$ | async"
 ></app-list-container>
+
+
+  <router-outlet></router-outlet>
