@@ -1,11 +1,24 @@
 $primaryBackground: rgb(34, 20, 43);
 
+.newtask {
+    background: lighten($primaryBackground, 5%);
+    color: white;
+    text-align: left;
+    padding: 10px;
+    padding-left: 40%;
+
+}
+
+.form-control {
+  width: 400px;
+}
 
 
 .submit {
     background-color: lighten($primaryBackground, 40%);
     color: white;
-    padding: 6px;
+    padding: 10px;
+    margin-left: 150px;
     font-size: 16px;
     border: none;
     border-radius: 15px 15px 15px 15px;
@@ -51,7 +64,7 @@ $primaryBackground: rgb(34, 20, 43);
   
   /* When the radio button is checked */
   .container input:checked ~ .checkmark {
-    background-color: lighten($primaryBackground, 20%);
+    background-color: lighten($primaryBackground, 30%);
   }
 
 

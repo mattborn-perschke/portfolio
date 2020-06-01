@@ -1,3 +1,5 @@
+$primaryBackground: rgb(34, 20, 43);
+
 :host {
     display: flex;
     flex-direction: column;
@@ -23,16 +25,20 @@ mat-card-header {
   justify-content: space-between;
 }
 
+.mat-card-buttons {
+}
+
 .header-button {
   width: 2rem!important;
   height: 2rem!important;
 }
 
 .list-card {
-  background: rgb(34, 20, 43);
+  background-color: lighten($primaryBackground, 5%);
   flex: 1;
   margin: 0.5rem;
   max-width: 100%;
+  border-radius: 15px 15px 15px 15px;
 }
 
 .list-card-white {
@@ -40,6 +46,7 @@ mat-card-header {
   margin: 0.5rem;
   background: white;
   color: initial;
+  border-radius: 15px 15px 15px 15px;
 }
 
 .list-item {

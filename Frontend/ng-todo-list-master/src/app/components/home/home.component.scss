@@ -1,0 +1,9 @@
+$primaryBackground: rgb(34, 20, 43);
+
+.home {
+    background: lighten($primaryBackground, 5%);
+    color: white;
+    text-align: left;
+    padding-left: 40%;
+
+}
