@@ -8,6 +8,9 @@
     <button mat-mini-fab color="primary">
       <fa-icon [icon]="['fas', 'edit']"></fa-icon>
     </button>
+    <button mat-mini-fab color="primary">
+      <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+    </button>
     </div>
   </mat-card-header>
   <mat-card-content [style.overflow]="'auto'" [style.height.px]="'300'">
@@ -15,13 +18,11 @@
       <mat-card class="list-card-white">
         <mat-card-header>
           <mat-card-title>{{task.name}}</mat-card-title>
-          <div class="mat-card-buttons">
-          <button mat-mini-fab style="background-color: rgb(34, 20, 43);
-                                      color: white;">
+          <div class="mat-card-buttons2">
+          <button mat-mini-fab color="black">
             <fa-icon [icon]="['far', 'trash-alt']"></fa-icon>
           </button>
-           <button mat-mini-fab style="background-color: rgb(34, 20, 43);
-                                      color: white;">
+          <button mat-mini-fab color="black">
             <fa-icon [icon]="['far', 'edit']"></fa-icon>
           </button>
           </div>

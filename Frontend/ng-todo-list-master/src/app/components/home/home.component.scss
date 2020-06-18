@@ -7,3 +7,10 @@ $primaryBackground: rgb(34, 20, 43);
     padding-left: 40%;
 
 }
+
+.work {
+    color: white;
+    &:hover {
+        color: lighten($primaryBackground, 60%);
+    }
+}

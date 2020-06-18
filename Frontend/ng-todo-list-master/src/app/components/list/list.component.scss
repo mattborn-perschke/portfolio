@@ -8,6 +8,9 @@ $primaryBackground: rgb(34, 20, 43);
 mat-card {
     flex: 1;
     margin: 0.5rem;
+    &:hover {
+      background: lighten($primaryBackground, 50%);
+    }
     // border: 55px;
     // border: #000;
 }
@@ -23,6 +26,12 @@ mat-card-title {
 
 mat-card-header {
   justify-content: space-between;
+}
+
+button{
+  &:hover {
+    background: lighten($primaryBackground, 40%);
+  }
 }
 
 .mat-card-buttons {
