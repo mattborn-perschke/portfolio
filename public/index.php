@@ -72,7 +72,7 @@ $app->get('/aufgaben/{aufgabenlistenID}', function (Request $request, Response $
 });
 
 //Legt eine neue Aufgabe in einer Aufgabenliste an
-$app->post('/aufgaben/{aufgabenlistenID}', function (Request $request, Response $response, $args) {
+$app->post('/aufgaben/{aufgabenlistenID}/{benutzerID}', function (Request $request, Response $response, $args) {
     $parsedBody = $request->getParsedBody();
     $aufgabe = R::dispense('aufgabe');
     $aufgabe->titel = $parsedBody['titel'];
@@ -84,6 +84,10 @@ $app->post('/aufgaben/{aufgabenlistenID}', function (Request $request, Response 
     $a = R::load('aufgabenliste', $parsedBody['aufgabenliste_id']);
     $aufgabe->aufgabenliste = $a;
     $aufgabe->aufgabenliste_id = $args['aufgabenlistenID'];
+
+    $b = R::load('benutzer', $parsedBody['benutzer_id']);
+    $aufgabe->benutzer = $b;
+    $aufgabe->benutzer_id = $args['benutzerID'];
 
     R::store($aufgabe);
     $response->getBody()->write(json_encode($aufgabe));
