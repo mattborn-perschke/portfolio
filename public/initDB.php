@@ -150,6 +150,7 @@ for ($a=0; $a < 6; $a++) {
         $b = R::load('benutzer', 1);
     }
     $al->benutzer = $b;
+    $aufgabe->benutzer = $b;
 
     $id = R::store($al);   
 }

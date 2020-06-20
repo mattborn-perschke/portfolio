@@ -64,7 +64,7 @@ $app->get('/aufgabenlisten/{benutzerID}/{aufgabenlistenID}', function (Request $
     return $response;
 });
 
-//Alle Aufgaben einer Aufgabenliste anzeigen
+//Alle Aufgaben einer Aufgabenliste anzeigen (=Filter nach Aufgabenliste)
 $app->get('/aufgaben/{aufgabenlistenID}', function (Request $request, Response $response, $args) {
     $aufgaben = R::findAll('aufgabe', 'aufgabenliste_id = ?', [$args['aufgabenlistenID']]); 
     $response->getBody()->write(json_encode(R::exportAll($aufgaben, TRUE)));
@@ -155,6 +155,76 @@ $app->delete('/aufgabenlisten/{aufgabenlistenID}', function (Request $request, R
     $aufgabenliste = R::load('aufgabenliste', $args['aufgabenlistenID']);
     R::trash($aufgabenliste);
     $response->getBody()->write(json_encode($aufgabenliste));
+    return $response;
+});
+
+
+// ##### Filter und Sortierung ##############
+
+//Sortierung aufwärts nach Zeitpunkt
+$app->get('/aufgaben/zeitpunkt/sortauf/{benutzerID}', function (Request $request, Response $response, $args) {
+    $aufgaben = R::findAll('aufgabe', 'benutzer_id = ? order by zeitpunkt asc', [$args['benutzerID']] ); 
+    $response->getBody()->write(json_encode(R::exportAll($aufgaben, TRUE)));
+    return $response;
+});
+
+//Sortierung abwärts nach Zeitpunkt
+$app->get('/aufgaben/zeitpunkt/sortab/{benutzerID}', function (Request $request, Response $response, $args) {
+    $aufgaben = R::findAll('aufgabe', 'benutzer_id = ? order by zeitpunkt desc', [$args['benutzerID']] ); 
+    $response->getBody()->write(json_encode(R::exportAll($aufgaben, TRUE)));
+    return $response;
+});
+
+//Sortierung aufwärts nach Status
+$app->get('/aufgaben/status/sortauf/{benutzerID}', function (Request $request, Response $response, $args) {
+    $aufgaben = R::findAll('aufgabe', 'benutzer_id = ? order by status asc', [$args['benutzerID']] ); 
+    $response->getBody()->write(json_encode(R::exportAll($aufgaben, TRUE)));
+    return $response;
+});
+
+//Sortierung abwärts nach Status
+$app->get('/aufgaben/status/sortab/{benutzerID}', function (Request $request, Response $response, $args) {
+    $aufgaben = R::findAll('aufgabe', 'benutzer_id = ? order by status desc', [$args['benutzerID']] ); 
+    $response->getBody()->write(json_encode(R::exportAll($aufgaben, TRUE)));
+    return $response;
+});
+
+//Sortierung aufwärts nach Gewichtung
+$app->get('/aufgaben/gewichtung/sortauf/{benutzerID}', function (Request $request, Response $response, $args) {
+    $aufgaben = R::findAll('aufgabe', 'benutzer_id = ? order by gewichtung asc', [$args['benutzerID']] ); 
+    $response->getBody()->write(json_encode(R::exportAll($aufgaben, TRUE)));
+    return $response;
+});
+
+//Sortierung abwärts nach Gewichtung
+$app->get('/aufgaben/gewichtung/sortab/{benutzerID}', function (Request $request, Response $response, $args) {
+    $aufgaben = R::findAll('aufgabe', 'benutzer_id = ? order by gewichtung desc', [$args['benutzerID']] ); 
+    $response->getBody()->write(json_encode(R::exportAll($aufgaben, TRUE)));
+    return $response;
+});
+
+
+
+//Filter Aufgaben nach konkretem Status
+//1 = offen, 2 = in Bearbeitung, 3 = erledigt, 4 = verspätet erledigt, 5 = abgebrochen
+$app->get('/aufgaben/status/filter/{benutzerID}/{status}', function (Request $request, Response $response, $args) {
+    $aufgaben = R::findAll('aufgabe', 'benutzer_id = ? AND status = ?', [$args['benutzerID'], [$args['status'], PDO::PARAM_STR]]); 
+    $response->getBody()->write(json_encode(R::exportAll($aufgaben, TRUE)));
+    return $response;
+});
+
+//Filter Aufgaben nach konkreter Gewichtung
+// 1 = unwichtig, 2 = weniger wichtig, 3 = normal, 4 = wichtig, 5 = sehr wichtig
+$app->get('/aufgaben/gewichtung/filter/{benutzerID}/{gewichtung}', function (Request $request, Response $response, $args) {
+    $aufgaben = R::findAll('aufgabe', 'benutzer_id = ? AND gewichtung = ?', [$args['benutzerID'], [$args['gewichtung'], PDO::PARAM_STR]]); 
+    $response->getBody()->write(json_encode(R::exportAll($aufgaben, TRUE)));
+    return $response;
+});
+
+//Filter Aufgaben nach konkretem Zeitpunkt
+$app->get('/aufgaben/zeitpunkt/filter/{benutzerID}/{zeitpunkt}', function (Request $request, Response $response, $args) {
+    $aufgaben = R::findAll('aufgabe', 'benutzer_id = ? AND zeitpunkt = ?', [$args['benutzerID'], [$args['zeitpunkt'], PDO::PARAM_STR]]); 
+    $response->getBody()->write(json_encode(R::exportAll($aufgaben, TRUE)));
     return $response;
 });
 
