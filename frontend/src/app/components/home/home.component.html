@@ -1,14 +1,17 @@
 <div class="home">
 <br>
-<h3>Willkommen Benutzername.</h3><br>
-<p>
-Sie haben derzeit x Aufgabenlisten mit x unerledigten Aufgaben. <br>
-<br>
-Was möchten Sie als nächstes tun? <br>
-<br>
-</p>
-<a href="#" class="work" routerLink="/newtask"><h4> Neue Aufgabe erstellen</h4></a>
-<br>
-<a href="#" class="work" routerLink="/task"><h4> Aufgabenliste bearbeiten </h4></a>
-<br>
+<h3>Willkommen {{ user$ | async }}.</h3><br>
+<div *ngIf="!(loginStatus$ | async)">
+  <a href="#" routerLink="/login" style="color: white;">Bitte logge dich doch ein mein Freund</a>
+</div>
+<div *ngIf="(loginStatus$ | async)">
+  <p>
+  Was möchten Sie als nächstes tun? <br>
+  <br>
+  </p>
+  <a href="#" class="work" routerLink="/newtask"><h4> Neue Aufgabe erstellen</h4></a>
+  <br>
+  <a href="#" class="work" routerLink="/task"><h4> Aufgabenliste bearbeiten </h4></a>
+  <br>
+  </div>
 </div>

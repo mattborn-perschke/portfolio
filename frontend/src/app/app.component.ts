@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Tasklist } from './models/tasklist.model';
 import { TasklistService } from './services/tasklist.service';
+import { LoginService } from './services/login.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
@@ -13,9 +14,11 @@ export class AppComponent implements OnInit {
 
   tasklists$: Observable<Tasklist[]>;
   numberOfTasklists$: Observable<number>;
+  user$: BehaviorSubject<string>;
+  user: string;
 
-  constructor(private tasklistService: TasklistService) {
-
+  constructor(private tasklistService: TasklistService, private loginService: LoginService) {
+    this.user$ = loginService.user$;
   }
   ngOnInit(): void {
   }
