@@ -3,5 +3,6 @@ export interface Task {
     date: Date;
     status: number;
     weight: number;
+    id: number;
 }
 

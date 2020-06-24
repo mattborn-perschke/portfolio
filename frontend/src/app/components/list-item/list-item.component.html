@@ -1,0 +1,26 @@
+  <mat-card class="list-card-white">
+    <mat-card-header>
+      <mat-card-title>{{task.name}}</mat-card-title>
+      <div class="mat-card-buttons2">
+      <button mat-mini-fab
+        color="black"
+        (click)="delete()">
+        <fa-icon [icon]="['far', 'trash-alt']"></fa-icon>
+      </button>
+      <button mat-mini-fab color="black">
+        <fa-icon [icon]="['far', 'edit']"></fa-icon>
+      </button>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row-6 row-md-4">
+        Fälligkeitsdatum: {{task.date}}
+      </div>
+      <div class="row-6 row-md-4">
+        Status: {{task.status}}
+      </div>
+      <div class="row-6 row-md-4">
+        Relevanz: {{task.weight}}
+      </div>
+    </mat-card-content>
+  </mat-card>

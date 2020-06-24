@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Tasklist } from '../models/tasklist.model';
 import { Task } from '../models/task.model';
+import { LoginService } from './login.service';
 
 export const getAllTasklists = () => {
   return map(([tasklists]:
@@ -14,26 +15,31 @@ export const getAllTasklists = () => {
 
 export const transformTasklists = () => {
     return map((tasklists: any[]) => {
-        return tasklists.map(tasklist => {
-          const tasks = tasklist[1];
-          const comtasks: Task[] = [];
+      return tasklists.map(tasklist => {
+        const tasks = tasklist.ownAufgabe;
+        const comtasks: Task[] = [];
+        if (tasklist.ownAufgabe !== undefined) {
           for (const t of tasks) {
             const task: Task = {
-              name: t[0],
-              date: t[1],
-              status: t[2],
-              weight: t[3]
+              name: t.titel,
+              date: t.zeitpunkt,
+              status: t.status,
+              weight: t.gewichtung,
+              id: t.id
             };
             comtasks.push(task);
           }
-          return {
-              ...tasklist,
-              id: tasklist[0],
+        }
+        const returnValue = {
+              // ...tasklist,
+              id: tasklist.id,
+              name: tasklist.titel,
               tasks: comtasks,
-              owner: tasklist[2],
-              status: tasklist[3]
-          };
-        });
+              owner: tasklist.benutzer.name,
+              status: tasklist.status
+        };
+        return returnValue;
+      });
     });
 };
 
@@ -44,17 +50,18 @@ export class TasklistService {
     tasklists$: BehaviorSubject<Tasklist[]> = new BehaviorSubject(null);
     tasklist$: BehaviorSubject<Tasklist[]> = new BehaviorSubject(null);
 
-    constructor(private http: HttpClient) {
+    constructor(private loginService: LoginService, private http: HttpClient) {
     }
 
   async loadTasklists() {
-      const tasklists = await this.http
-          .get<Tasklist[]>('/assets/tasklistmock.json')
-          .pipe(
-              transformTasklists()
-          )
-          .toPromise();
+    if (this.loginService.loginStatus$.getValue()) {
+      const tasklists = await this.http.get<Tasklist[]>('http://localhost/portfolio/public/aufgabenlisten/'
+                                            + this.loginService.userId$.getValue()).pipe(
+                                            transformTasklists()).toPromise();
       this.tasklists$.next(tasklists);
+    } else {
+      this.tasklists$.next([]);
+    }
   }
   getTotalNumberOfProducts(): Observable<number> {
       return this.tasklists$.pipe(

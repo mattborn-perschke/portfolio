@@ -15,12 +15,18 @@ export class AppComponent implements OnInit {
   tasklists$: Observable<Tasklist[]>;
   numberOfTasklists$: Observable<number>;
   user$: BehaviorSubject<string>;
+  loginStatus$: BehaviorSubject<boolean>;
   user: string;
 
   constructor(private tasklistService: TasklistService, private loginService: LoginService) {
     this.user$ = loginService.user$;
+    this.loginStatus$ = loginService.loginStatus$;
   }
   ngOnInit(): void {
+  }
+
+  logout(): void {
+    this.loginService.logout();
   }
 
 }

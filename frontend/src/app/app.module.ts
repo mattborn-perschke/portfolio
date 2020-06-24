@@ -23,6 +23,7 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './components/login/login.component';
 import { NewtaskComponent } from './components/newtask/newtask.component';
+import { ListItemComponent } from './components/list-item/list-item.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { NewtaskComponent } from './components/newtask/newtask.component';
     ListContainerComponent,
     HomeComponent,
     LoginComponent,
-    NewtaskComponent
+    NewtaskComponent,
+    ListItemComponent
   ],
   imports: [
     BrowserModule,

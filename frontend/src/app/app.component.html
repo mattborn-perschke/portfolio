@@ -19,8 +19,17 @@
         <fa-icon [icon]="['fas', 'plus']"></fa-icon>
       </button>
     </a>
-    <a href="#" routerLink="/login">
+    <a href="#" *ngIf="!(loginStatus$ | async)" routerLink="/login">
       <button class="icon4" mat-icon-button color="accent" aria-label="Example icon button with a menu icon">
+        <fa-icon [icon]="['fas', 'sign-in-alt']"></fa-icon>
+      </button>
+    </a>
+    <a href="#" *ngIf="(loginStatus$ | async)">
+      <button class="icon4"
+        mat-icon-button
+        color="accent"
+        aria-label="Example icon button with a menu icon"
+        (click)="logout()">
         <fa-icon [icon]="['fas', 'sign-out-alt']"></fa-icon>
       </button>
     </a>

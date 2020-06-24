@@ -1,8 +1,11 @@
 <mat-card class="list-card">
   <mat-card-header>
-    <mat-card-title>{{name}}</mat-card-title>
+    <mat-card-title>ID: {{id}}<br>
+      Name: {{name}}</mat-card-title>
     <div class="mat-card-buttons">
-    <button mat-mini-fab color="primary">
+    <button mat-mini-fab
+      (click)="delete()"
+      color="primary">
       <fa-icon [icon]="['fas', 'trash']"></fa-icon>
     </button>
     <button mat-mini-fab color="primary">
@@ -15,30 +18,7 @@
   </mat-card-header>
   <mat-card-content [style.overflow]="'auto'" [style.height.px]="'300'">
     <div class="list-item" *ngFor="let task of tasklist.tasks">
-      <mat-card class="list-card-white">
-        <mat-card-header>
-          <mat-card-title>{{task.name}}</mat-card-title>
-          <div class="mat-card-buttons2">
-          <button mat-mini-fab color="black">
-            <fa-icon [icon]="['far', 'trash-alt']"></fa-icon>
-          </button>
-          <button mat-mini-fab color="black">
-            <fa-icon [icon]="['far', 'edit']"></fa-icon>
-          </button>
-          </div>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="row-6 row-md-4">
-            Fälligkeitsdatum: {{task.date}}
-          </div>
-          <div class="row-6 row-md-4">
-            Status: {{task.status}}
-          </div>
-          <div class="row-6 row-md-4">
-            Relevanz: {{task.weight}}
-          </div>
-        </mat-card-content>
-      </mat-card>
+      <app-list-item [task]="task"></app-list-item>
     </div>
   </mat-card-content>
 </mat-card>

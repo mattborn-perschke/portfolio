@@ -1,5 +1,8 @@
 ## Home-Page
 
 ## Login
-Weiterleitung bei erfolgreicher Sortierung.
-### Logout
+Löschen vortäuschen
+
+## Filtern
+
+## Hinzufügen

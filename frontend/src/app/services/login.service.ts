@@ -7,26 +7,30 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LoginService {
   user$: BehaviorSubject<string> = new BehaviorSubject('Gast');
+  userId$: BehaviorSubject<string> = new BehaviorSubject('');
   loginStatus$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   response$: Observable<any>;
   response: any;
 
   constructor(private http: HttpClient) {}
 
-  performLogin(username, password) {
-    this.response$ = this.http.get('http://192.168.178.45/portfolio/public/login/'
+  async performLogin(username, password) {
+    let success = false;
+    this.response$ = await this.http.get('http://localhost/portfolio/public/login/'
                          + username + '/' + password);
     const myObserver = {
       next: x => {
         this.user$.next(x[0].name) ;
+        this.userId$.next(x[0].id);
         this.loginStatus$.next(true);
+        success = true;
       },
       error: err => {
         this.loginStatus$.next(false);
         },
       };
-
     this.response$.subscribe(myObserver);
+    return success;
   }
 
   logout() {
