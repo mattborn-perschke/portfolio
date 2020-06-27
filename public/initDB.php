@@ -6,14 +6,14 @@
 
 // Folgende Informationen sind bekannt:
 // 
-// Datenbankserver:   localhost
-// Datenbankname:     mattborn_perschke
-// Datenbankuser:     mattborn 
-// Datenbankkennwort: u8EYfdwRGlb2AuAg
+// Datenbankserver:     localhost
+// Datenbankname:       aufgabenverwaltung
+// Datenbankuser:       root 
+// Datenbankkennwort:   ''
 
 require 'rb.php';
 
-R::setup('mysql:host=localhost;dbname=mattborn_perschke', 'mattborn', 'u8EYfdwRGlb2AuAg');
+R::setup('mysql:host=localhost;dbname=aufgabenverwaltung', 'root', '');
 
 
 //#########  Tabelle 'benutzer' anlegen  ##############

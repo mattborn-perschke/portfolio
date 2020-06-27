@@ -6,7 +6,7 @@ use Slim\Factory\AppFactory;
 require __DIR__ . '/../vendor/autoload.php';
 require 'rb.php';
 
-R::setup('mysql:host=localhost;dbname=mattborn_perschke', 'mattborn', 'u8EYfdwRGlb2AuAg');
+R::setup('mysql:host=localhost;dbname=aufgabenverwaltung', 'root', '');
 
 $app = AppFactory::create();
 $app->setBasePath((function () {
