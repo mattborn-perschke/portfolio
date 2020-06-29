@@ -16,10 +16,14 @@ export class ListItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  delete() {
+  async delete() {
     this.http.delete('http://localhost/portfolio/public/aufgaben/' + this.task.id)
     .subscribe((response) => {
     });
+    await this.delay(600);
     this.tasklistService.loadTasklists();
+  }
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 }

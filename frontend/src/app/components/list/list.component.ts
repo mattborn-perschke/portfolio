@@ -26,7 +26,11 @@ export class ListComponent implements OnInit {
     await this.http.delete('http://localhost/portfolio/public/aufgabenlisten/' + this.id)
     .subscribe((response) => {
     });
+    await this.delay(600);
     this.tasklistService.loadTasklists();
+  }
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
 }
