@@ -24,6 +24,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './components/login/login.component';
 import { NewtaskComponent } from './components/newtask/newtask.component';
 import { ListItemComponent } from './components/list-item/list-item.component';
+import { MatSelectModule } from '@angular/material/select';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { FilterSelecteurComponent } from './components/filter-selecteur/filter-selecteur.component';
 
 
 @NgModule({
@@ -35,10 +39,15 @@ import { ListItemComponent } from './components/list-item/list-item.component';
     HomeComponent,
     LoginComponent,
     NewtaskComponent,
-    ListItemComponent
+    ListItemComponent,
+    FilterSelecteurComponent
   ],
   imports: [
     BrowserModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatSelectModule,
     HttpClientModule,
     ScrollingModule,
     BrowserAnimationsModule,

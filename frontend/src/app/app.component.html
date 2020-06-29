@@ -9,14 +9,9 @@
         <fa-icon [icon]="['fas', 'home']"></fa-icon>
       </button>
     </a>
-    <a href="#" routerLink="/task">
+    <a href="#" *ngIf="(loginStatus$ | async)" routerLink="/task">
      <button class="icon2" mat-icon-button color="accent" aria-label="Example icon button with a menu icon">
         <fa-icon [icon]="['fas', 'tasks']"></fa-icon>
-      </button>
-    </a>
-    <a href="#" routerLink="/newtask">
-      <button class="icon3" mat-icon-button color="accent" aria-label="Example icon button with a menu icon">
-        <fa-icon [icon]="['fas', 'plus']"></fa-icon>
       </button>
     </a>
     <a href="#" *ngIf="!(loginStatus$ | async)" routerLink="/login">
@@ -36,8 +31,4 @@
     {{ user$ | async }}
   </div>
 </mat-toolbar>
-<app-list-container
-  [tasklists]="tasklists$ | async"
-  [count]="numberOfTasklists$ | async"
-></app-list-container>
 <router-outlet></router-outlet>
