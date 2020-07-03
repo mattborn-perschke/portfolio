@@ -73,8 +73,8 @@ export class TasklistService {
   async loadTasklistsFiltered(nach: string, value: string) {
     if (this.loginService.loginStatus$.getValue()) {
       const tasklists = await this.http.get<Tasklist[]>('http://localhost:4200/api/portfolio/public/aufgaben/'
-        + nach + '/filter/' + value + '/'
-        + this.loginService.userId$.getValue()).pipe(
+        + nach + '/filter/'
+        + this.loginService.userId$.getValue() + '/' + value).pipe(
         transformTasklists()).toPromise();
       this.tasklists$.next(tasklists);
     } else {

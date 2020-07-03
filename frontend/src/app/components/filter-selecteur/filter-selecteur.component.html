@@ -1,10 +1,10 @@
 <mat-toolbar style="justify-content: space-between;">
   <mat-toolbar-row>
     <span>
-      <h2>Filter Auswahl:</h2>
-      <mat-label>Gewichtung</mat-label>
+      <h2>Filter Auswahl</h2>
     </span>
     <span>
+      <mat-label>Wert: </mat-label>
       <mat-form-field>
         <mat-select [(ngModel)]="selectedGewichtung" name="gewichtung">
           <mat-option *ngFor="let g of gewichte" [value]="g">
