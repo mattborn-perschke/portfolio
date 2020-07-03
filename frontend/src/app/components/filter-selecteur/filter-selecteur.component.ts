@@ -50,4 +50,10 @@ export class FilterSelecteurComponent implements OnInit {
   sortStatusAb(): void {
     this.tasklistService.loadTasklistsSorted('status', 'sortab');
   }
+  sortZeitpunktAuf(): void {
+    this.tasklistService.loadTasklistsSorted('zeitpunkt', 'sortauf');
+  }
+  sortZeitpunktAb(): void {
+    this.tasklistService.loadTasklistsSorted('zeitpunkt', 'sortab');
+  }
 }
