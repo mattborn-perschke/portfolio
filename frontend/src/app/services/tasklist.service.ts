@@ -8,69 +8,90 @@ import { LoginService } from './login.service';
 
 export const getAllTasklists = () => {
   return map(([tasklists]:
-              [Tasklist[]]) => {
-          return tasklists;
-      });
+                [Tasklist[]]) => {
+    return tasklists;
+  });
 };
 
 export const transformTasklists = () => {
-    return map((tasklists: any[]) => {
-      return tasklists.map(tasklist => {
-        const tasks = tasklist.ownAufgabe;
-        const comtasks: Task[] = [];
-        if (tasklist.ownAufgabe !== undefined) {
-          for (const t of tasks) {
-            const task: Task = {
-              name: t.titel,
-              date: t.zeitpunkt,
-              status: t.status,
-              weight: t.gewichtung,
-              id: t.id
-            };
-            comtasks.push(task);
-          }
+  return map((tasklists: any[]) => {
+    return tasklists.map(tasklist => {
+      const tasks = tasklist.ownAufgabe;
+      const comtasks: Task[] = [];
+      if (tasklist.ownAufgabe !== undefined) {
+        for (const t of tasks) {
+          const task: Task = {
+            name: t.titel,
+            date: t.zeitpunkt,
+            status: t.status,
+            weight: t.gewichtung,
+            id: t.id
+          };
+          comtasks.push(task);
         }
-        const returnValue = {
-              // ...tasklist,
-              id: tasklist.id,
-              name: tasklist.titel,
-              tasks: comtasks,
-              owner: tasklist.benutzer.name,
-              status: tasklist.status
-        };
-        return returnValue;
-      });
+      }
+      const returnValue = {
+        // ...tasklist,
+        id: tasklist.id,
+        name: tasklist.titel,
+        tasks: comtasks,
+        owner: tasklist.benutzer.name,
+        status: tasklist.status
+      };
+      return returnValue;
     });
+  });
 };
 
 @Injectable({
   providedIn: 'root'
 })
 export class TasklistService {
-    tasklists$: BehaviorSubject<Tasklist[]> = new BehaviorSubject(null);
-    tasklist$: BehaviorSubject<Tasklist[]> = new BehaviorSubject(null);
+  tasklists$: BehaviorSubject<Tasklist[]> = new BehaviorSubject(null);
+  tasklist$: BehaviorSubject<Tasklist[]> = new BehaviorSubject(null);
 
-    constructor(private loginService: LoginService, private http: HttpClient) {
+  constructor(private loginService: LoginService, private http: HttpClient) {
+  }
+  async loadTasklistsSorted(nach: string, value: string) {
+    if (this.loginService.loginStatus$.getValue()) {
+      const tasklists = await this.http.get<Tasklist[]>('http://localhost:4200/api/portfolio/public/aufgaben/'
+        + nach + '/' +  value + '/'
+        + this.loginService.userId$.getValue()).pipe(
+        transformTasklists()).toPromise();
+      this.tasklists$.next(tasklists);
+    } else {
+      this.tasklists$.next([]);
     }
-
+  }
+  async loadTasklistsFiltered(nach: string, value: string) {
+    if (this.loginService.loginStatus$.getValue()) {
+      const tasklists = await this.http.get<Tasklist[]>('http://localhost:4200/api/portfolio/public/aufgaben/'
+        + nach + '/filter/' + value + '/'
+        + this.loginService.userId$.getValue()).pipe(
+        transformTasklists()).toPromise();
+      this.tasklists$.next(tasklists);
+    } else {
+      this.tasklists$.next([]);
+    }
+  }
   async loadTasklists() {
     if (this.loginService.loginStatus$.getValue()) {
-      const tasklists = await this.http.get<Tasklist[]>('http://localhost/portfolio/public/aufgabenlisten/'
-                                            + this.loginService.userId$.getValue()).pipe(
-                                            transformTasklists()).toPromise();
+      const tasklists = await this.http.get<Tasklist[]>('http://localhost:4200/api/portfolio/public/aufgabenlisten/'
+        + this.loginService.userId$.getValue()).pipe(
+        transformTasklists()).toPromise();
       this.tasklists$.next(tasklists);
     } else {
       this.tasklists$.next([]);
     }
   }
   getTotalNumberOfProducts(): Observable<number> {
-      return this.tasklists$.pipe(
-          map(tasklists => (tasklists ? tasklists.length : 0))
-      );
+    return this.tasklists$.pipe(
+      map(tasklists => (tasklists ? tasklists.length : 0))
+    );
   }
-   getTasklists(): Observable<Tasklist[]> {
-        return combineLatest(this.tasklists$).pipe(
-                getAllTasklists()
-            );
-    }
+  getTasklists(): Observable<Tasklist[]> {
+    return combineLatest(this.tasklists$).pipe(
+      getAllTasklists()
+    );
+  }
 }

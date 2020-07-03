@@ -1,22 +1,33 @@
-<div>
-  <mat-form-field>
-    <h2>Filter Auswahl:</h2>
-    <button mat-flat-button color="primary">Gewichtung filtern</button>
+<mat-toolbar style="justify-content: space-between;">
+  <mat-toolbar-row>
+    <span>
+      <h2>Filter Auswahl:</h2>
       <mat-label>Gewichtung</mat-label>
-      <mat-select [(ngModel)]="selectedValue" name="gewichtung">
-        <mat-option [value]="1">
-          unwichtig
-        </mat-option>
-      </mat-select>
-    <button mat-flat-button color="primary">Status filtern</button>
-  </mat-form-field>
-</div>
-<div>
-  <h2>Sortierung Auswahl:</h2>
-  <button mat-flat-button color="primary">Primary</button>
-  <button mat-flat-button color="primary">Primary</button>
-  <button mat-flat-button color="primary">Primary</button>
-  <button mat-flat-button color="primary">Primary</button>
-  <button mat-flat-button color="primary">Primary</button>
-  <button mat-flat-button color="primary">Primary</button>
-</div>
+    </span>
+    <span>
+      <mat-form-field>
+        <mat-select [(ngModel)]="selectedGewichtung" name="gewichtung">
+          <mat-option *ngFor="let g of gewichte" [value]="g">
+            {{g}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-flat-button color="primary" (click)="filterGewichtung()">Gewichtung filtern</button>
+      <button mat-flat-button color="primary" (click)="filterStatus()">Status filtern</button>
+      <button mat-flat-button color="primary" (click)="reset()">Reset</button>
+    </span>
+  </mat-toolbar-row>
+  <mat-toolbar-row>
+    <span>
+      <h2>
+        Sortieren nach:
+      </h2>
+    </span>
+    <span>
+      <button mat-flat-button color="primary" (click)="sortGewichtungAuf()">Gewichtung aufsteigend</button>
+      <button mat-flat-button color="primary" (click)="sortGewichtungAb()">Gewichtung absteigend</button>
+      <button mat-flat-button color="primary" (click)="sortStatusAuf()">Status aufsteigend</button>
+      <button mat-flat-button color="primary" (click)="sortStatusAb()">Status absteigend</button>
+    </span>
+  </mat-toolbar-row>
+</mat-toolbar>

@@ -16,7 +16,7 @@ export class LoginService {
 
   async performLogin(username, password) {
     let success = false;
-    this.response$ = await this.http.get('http://localhost/portfolio/public/login/'
+    this.response$ = await this.http.get('http://localhost:4200/api/portfolio/public/login/'
                          + username + '/' + password);
     const myObserver = {
       next: x => {

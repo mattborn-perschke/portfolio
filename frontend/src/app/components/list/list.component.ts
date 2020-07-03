@@ -23,7 +23,7 @@ export class ListComponent implements OnInit {
   }
 
   async delete() {
-    await this.http.delete('http://localhost/portfolio/public/aufgabenlisten/' + this.id)
+    await this.http.delete('http://localhost:4200/api/portfolio/public/aufgabenlisten/' + this.id)
     .subscribe((response) => {
     });
     await this.delay(600);

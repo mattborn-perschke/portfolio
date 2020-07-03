@@ -17,7 +17,7 @@ export class ListItemComponent implements OnInit {
   }
 
   async delete() {
-    this.http.delete('http://localhost/portfolio/public/aufgaben/' + this.task.id)
+    this.http.delete('http://localhost:4200/api/portfolio/public/aufgaben/' + this.task.id)
     .subscribe((response) => {
     });
     await this.delay(600);
