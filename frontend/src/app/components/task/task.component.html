@@ -1,5 +1,5 @@
 <app-filter-selecteur></app-filter-selecteur>
-<app-list-container
+<app-list-container *ngIf="tasklists$ | async"
   [tasklists]="tasklists$ | async"
   [count]="numberOfTasklists$ | async"
 ></app-list-container>

@@ -18,7 +18,7 @@ export class FilterSelecteurComponent implements OnInit {
   }
 
   debug() {
-    console.log(this.tasklistService.tasklists$.getValue());
+    console.log(typeof(this.tasklistService.tasklists$.getValue()));
   }
   filterGewichtung(): void {
     if (this.selectedGewichtung) {

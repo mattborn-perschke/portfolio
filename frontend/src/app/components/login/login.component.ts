@@ -17,7 +17,6 @@ export class LoginComponent implements OnInit {
 
   doLogin(username, password) {
     const success = this.loginService.performLogin(username, password);
-    console.log(success);
     if (success) {
       this.router.navigate(['/']);
     }

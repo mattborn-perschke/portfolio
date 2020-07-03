@@ -10,7 +10,8 @@ import { TasklistService } from '../../services/tasklist.service';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  @Input() tasklist: Tasklist;
+  @Input() tasklist: any;
+  taskmode = false;
 
   constructor(private http: HttpClient, private tasklistService: TasklistService) { }
 
@@ -20,6 +21,9 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.tasklist.id;
     this.name = this.tasklist.name;
+    if (this.tasklist.status !== null) {
+      this.taskmode = true;
+    }
   }
 
   async delete() {

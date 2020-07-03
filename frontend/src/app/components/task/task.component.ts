@@ -12,7 +12,7 @@ import { FormControl } from '@angular/forms';
 export class TaskComponent implements OnInit {
   title = 'todo-listen';
 
-  tasklists$: Observable<Tasklist[]>;
+  tasklists$: Observable<any>;
   numberOfTasklists$: Observable<number>;
 
   constructor(private tasklistService: TasklistService) {
@@ -25,6 +25,6 @@ export class TaskComponent implements OnInit {
     this.numberOfTasklists$ = this.tasklistService.getTotalNumberOfProducts();
   }
   printTasks() {
-    console.log(this.tasklistService.tasklists$.getValue().length);
+    console.log(this.tasklistService.tasklists$.getValue());
   }
 }

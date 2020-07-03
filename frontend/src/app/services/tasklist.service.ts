@@ -16,6 +16,16 @@ export const getAllTasklists = () => {
 export const transformTasklists = () => {
   return map((tasklists: any[]) => {
     return tasklists.map(tasklist => {
+      if (tasklist.status !== null) {
+        const returnTask: Task = {
+          id: tasklist.id,
+          name: tasklist.name,
+          status: tasklist.status,
+          weight: tasklist.gewichtung,
+          date: tasklist.zeitpunkt,
+        };
+        return returnTask;
+      }
       const tasks = tasklist.ownAufgabe;
       const comtasks: Task[] = [];
       if (tasklist.ownAufgabe !== undefined) {
@@ -47,8 +57,8 @@ export const transformTasklists = () => {
   providedIn: 'root'
 })
 export class TasklistService {
-  tasklists$: BehaviorSubject<Tasklist[]> = new BehaviorSubject(null);
-  tasklist$: BehaviorSubject<Tasklist[]> = new BehaviorSubject(null);
+  tasklists$: BehaviorSubject<any> = new BehaviorSubject(null);
+  tasklist$: BehaviorSubject<any> = new BehaviorSubject(null);
 
   constructor(private loginService: LoginService, private http: HttpClient) {
   }
@@ -89,7 +99,7 @@ export class TasklistService {
       map(tasklists => (tasklists ? tasklists.length : 0))
     );
   }
-  getTasklists(): Observable<Tasklist[]> {
+  getTasklists(): Observable<any> {
     return combineLatest(this.tasklists$).pipe(
       getAllTasklists()
     );

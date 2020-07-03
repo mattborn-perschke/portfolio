@@ -8,7 +8,7 @@ import { Tasklist } from '../../models/tasklist.model';
 })
 export class ListContainerComponent implements OnInit {
   @Input() count: number;
-  @Input() tasklists: Tasklist[];
+  @Input() tasklists: any;
 
   tasklistgroups: Tasklist[][];
 
