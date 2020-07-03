@@ -21,7 +21,7 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.tasklist.id;
     this.name = this.tasklist.name;
-    if (this.tasklist.status !== null) {
+    if (this.tasklist.tasks === undefined) {
       this.taskmode = true;
     }
   }

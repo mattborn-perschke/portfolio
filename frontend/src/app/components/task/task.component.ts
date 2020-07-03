@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Tasklist } from '../../models/tasklist.model';
 import { TasklistService } from '../../services/tasklist.service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-task',

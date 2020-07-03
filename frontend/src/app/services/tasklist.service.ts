@@ -16,10 +16,10 @@ export const getAllTasklists = () => {
 export const transformTasklists = () => {
   return map((tasklists: any[]) => {
     return tasklists.map(tasklist => {
-      if (tasklist.status !== null) {
+      if (tasklist.ownAufgabe === undefined) {
         const returnTask: Task = {
           id: tasklist.id,
-          name: tasklist.name,
+          name: tasklist.titel,
           status: tasklist.status,
           weight: tasklist.gewichtung,
           date: tasklist.zeitpunkt,
@@ -28,17 +28,15 @@ export const transformTasklists = () => {
       }
       const tasks = tasklist.ownAufgabe;
       const comtasks: Task[] = [];
-      if (tasklist.ownAufgabe !== undefined) {
-        for (const t of tasks) {
-          const task: Task = {
-            name: t.titel,
-            date: t.zeitpunkt,
-            status: t.status,
-            weight: t.gewichtung,
-            id: t.id
-          };
-          comtasks.push(task);
-        }
+      for (const t of tasks) {
+        const task: Task = {
+          name: t.titel,
+          date: t.zeitpunkt,
+          status: t.status,
+          weight: t.gewichtung,
+          id: t.id
+        };
+        comtasks.push(task);
       }
       const returnValue = {
         // ...tasklist,
@@ -58,7 +56,6 @@ export const transformTasklists = () => {
 })
 export class TasklistService {
   tasklists$: BehaviorSubject<any> = new BehaviorSubject(null);
-  tasklist$: BehaviorSubject<any> = new BehaviorSubject(null);
 
   constructor(private loginService: LoginService, private http: HttpClient) {
   }
