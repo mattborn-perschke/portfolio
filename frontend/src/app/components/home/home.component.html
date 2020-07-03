@@ -2,7 +2,7 @@
 <br>
 <h3>Willkommen {{ user$ | async }}.</h3><br>
 <div *ngIf="!(loginStatus$ | async)">
-  <a href="#" routerLink="/login" style="color: white;">Bitte logge dich doch ein mein Freund</a>
+  <a href="#" routerLink="/login" style="color: white;">>>>>>Bitte hier einloggen</a>
 </div>
 <div *ngIf="(loginStatus$ | async)">
   <p>
